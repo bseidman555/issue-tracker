@@ -1,24 +1,18 @@
-"use client";
-import { useForm, Controller } from "react-hook-form";
-import "easymde/dist/easymde.min.css";
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
-import dynamic from "next/dynamic";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { issueSchema } from "@/app/validationSchemas";
-import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import { issueSchema } from "@/app/validationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
+import { Button, Callout, TextField } from "@radix-ui/themes";
+import axios from "axios";
+import "easymde/dist/easymde.min.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import SimpleMDE from "react-simplemde-editor";
+import { z } from "zod";
 
 type IssueFormData = z.infer<typeof issueSchema>;
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false, // This is the secret sauce that disables Server-Side Rendering
-  loading: () => <p>Loading Editor...</p>, // Optional placeholder while it loads
-});
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
