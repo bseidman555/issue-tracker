@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { issueSchema } from "../../../validationSchemas";
 
 interface Props {
-    params: { id: string }
+    params: Promise<{ id: string }>
 }
 
 export async function PATCH(request: NextRequest, { params }: Props) {
